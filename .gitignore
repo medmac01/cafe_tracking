@@ -5,3 +5,4 @@ __pycache__/
 detect_yolo.py
 .DS_Store
 yolov8n.pt
+detect_yolo.py
