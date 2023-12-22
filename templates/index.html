@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>People Count Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+    <body class="bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold text-center text-gray-700 my-8">
+                People Count Dashboard
+            </h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white rounded-lg shadow p-4">
+                    <div class="text-3xl font-bold text-center text-gray-700 my-8" id="currentCount"></div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-4">
+                    <div id="averageGraph" class="graph"></div>
+                </div>
+            </div>
+        </div>
+    
+    <script>
+
+        function updateCurrentCount(data) {
+            
+        }
+
+        function updateGraphs(data) {
+            var currentTrace = {
+                x: ['Current'],
+                y: [data.current_count],
+                type: 'bar',
+                name: 'Current Count'
+            };
+
+            var averageTrace = {
+                x: Object.keys(data.average_counts),
+                y: Object.values(data.average_counts),
+                type: 'bar',
+                name: 'Average Count'
+            };
+
+            var layoutCurrent = {
+                title: 'Current Detected Persons',
+                xaxis: { title: 'Current' },
+                yaxis: { title: 'Count' }
+            };
+
+            var layoutAverage = {
+                title: 'Average People Count Per Hour',
+                xaxis: { title: 'Hour' },
+                yaxis: { title: 'Average Count' }
+            };
+
+            Plotly.newPlot('averageGraph', [averageTrace], layoutAverage);
+            document.getElementById('currentCount').innerHTML = 'Current Detected Persons: ' + data.current_count;
+        }
+
+        
+        function fetchData() {
+            fetch('/data')
+                .then(response => response.json())
+                .then(data => updateGraphs(data));
+        }
+
+        
+        // Fetch data every 5 seconds
+        setInterval(fetchData, 5000);
+        fetchData(); // initial fetch
+    </script>
+</body>
+</html>

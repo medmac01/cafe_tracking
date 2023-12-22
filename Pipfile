@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+ultralytics = "==8.0.32"
+supervision = "==0.2.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

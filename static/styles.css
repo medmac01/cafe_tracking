@@ -1,0 +1,16 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.graph {
+    width: 80%;
+    margin: auto;
+    display: block;
+}
+
+.current-count {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
